@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  frontend:
+    container_name: frontend-app-dev
+    image: frontend-app-dev-image
+    build:
+      context: .
+      target: development
+    volumes:
+      - ./:/app
+    ports:
+      - 3000:3000
+    environment:
+      - WATCHPACK_POLLING=true
