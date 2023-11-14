@@ -1,14 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { render, screen } from '@testing-library/react'
 import Counter from './Counter';
+// import { getByTestId } from '@testing-library/react';
 
-describe('<Counter />', () => {
-  test('it should mount', () => {
-    render(<Counter initialValue={4}/>);
-    
-    const counter = screen.getByTestId('Counter');
-
-    expect(counter).toBeInTheDocument();
+describe(Counter, () => {
+  it("counter mounted", () => {
+    const { getByTestId } = render(<Counter initialValue={3} />);
+    const counter = getByTestId("Counter").textContent;
+    expect(counter).toBeDefined
   });
 });

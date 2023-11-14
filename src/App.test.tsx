@@ -1,27 +1,9 @@
-import React from 'react';
-// import { render, screen } from '@testing-library/react';
-// import App from './App';
+import React from "react";
+import { render } from "@testing-library/react"
+import App from "./App"
 
-// test('renders learn react link', () => {
-//   render(<App />);
-//   const linkElement = screen.getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
+test("renders the landing page", () => {
+  const { getByTestId } = render(<App />);
 
-// import * as React from "react";
-// import {act} from 'react-dom/test-utils';
-// import * as ReactDOM from "react-dom";
-// import App from "./App";
-
-// describe('App', function () {
-//    it('should display pass in number', function () {
-//        let container = document.createElement('div');
-//        document.body.appendChild(container);
-//        act(() => {
-//            ReactDOM.render(<App num={191}/>, container);
-//        })
-//        const header = container.querySelector('h1');
-//        expect(header.textContent).toBe("Hello world React! Num: 191")
-//    });
-// });
-
+  expect(getByTestId("App")).toBeDefined
+})
