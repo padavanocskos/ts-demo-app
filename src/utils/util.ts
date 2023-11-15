@@ -1,16 +1,16 @@
 export const isPrime = (number: number): boolean => {
-  let isPrime: boolean = true;
+  if (number === 1 || number === 0 || number < 0) {
+    return false
+  }
 
-  if (number === 1) {
-    isPrime = false;
-  } else {
-    for (let i = 2; i < number; i++) {
-      if (number % i === 0) {
-        isPrime = false;
-        break;
-      }
+  let isPrime: boolean = true
+
+  for (let i = 2; i < number; i++) {
+    if (number % i === 0) {
+      isPrime = false
+      break
     }
   }
 
-  return isPrime;
-};
+  return isPrime
+}
