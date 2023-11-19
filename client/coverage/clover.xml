@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1700405321375" clover="3.2.0">
+  <project timestamp="1700405321375" name="All files">
+    <metrics statements="9" coveredstatements="9" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1" elements="17" coveredelements="17" complexity="0" loc="9" ncloc="9" packages="3" files="5" classes="5"/>
+    <package name="ts-demo-app">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="jest.config.ts" path="/home/padavanocskos/development/ts-demo-app/jest.config.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="ts-demo-app.src">
+      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="react-app-env.d.ts" path="/home/padavanocskos/development/ts-demo-app/src/react-app-env.d.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="reportWebVitals.ts" path="/home/padavanocskos/development/ts-demo-app/src/reportWebVitals.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="setupTests.ts" path="/home/padavanocskos/development/ts-demo-app/src/setupTests.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="ts-demo-app.src.utils">
+      <metrics statements="9" coveredstatements="9" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1"/>
+      <file name="util.ts" path="/home/padavanocskos/development/ts-demo-app/src/utils/util.ts">
+        <metrics statements="9" coveredstatements="9" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="15" type="cond" truecount="5" falsecount="0"/>
+        <line num="3" count="11" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="9" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="15" count="4" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
