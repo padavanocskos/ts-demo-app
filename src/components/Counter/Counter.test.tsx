@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import Counter from './Counter'
 
 describe(Counter, () => {
@@ -52,5 +52,27 @@ describe(Counter, () => {
 
     expect(primeValidationText).toContain('is not prime!')
     expect(counter).toBe('-1')
+  })
+
+  it('increase counter by button', () => {
+    const { getByTestId } = render(<Counter initialValue={0} />)
+    const increaseButton = getByTestId('counter-increase')
+    const counterInitialValue = getByTestId('counter-box').textContent
+    fireEvent.click(increaseButton)
+    const counterIncreasedValue = getByTestId('counter-box').textContent
+
+    expect(counterInitialValue).toBe('0')
+    expect(counterIncreasedValue).toBe('1')
+  })
+
+  it('decrease button by button', () => {
+    const { getByTestId } = render(<Counter initialValue={1} />)
+    const decreaseButton = getByTestId('counter-decrease')
+    const counterInitialValue = getByTestId('counter-box').textContent
+    fireEvent.click(decreaseButton)
+    const counterDecreasedValue = getByTestId('counter-box').textContent
+
+    expect(counterInitialValue).toBe('1')
+    expect(counterDecreasedValue).toBe('0')
   })
 })
