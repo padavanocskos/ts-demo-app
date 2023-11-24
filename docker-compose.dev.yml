@@ -1,29 +1,50 @@
 version: "3.8"
 
 services:
+  api:
+    container_name: rails-api-dev
+    image: api-app-dev-image
+    ports:
+      - '3000:3000'
+    build:
+      context: ./api
+    volumes:
+      - ./api:/rails
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    environment:
+        DB_HOST: local_pgdb
+        DB_USER: rails
+        DB_PASSWORD: rails
   frontend:
     container_name: frontend-app-dev
     image: frontend-app-dev-image
     build:
-      context: .
+      context: ./client
       target: development
     volumes:
       - ./client:/app
     ports:
       - 8000:8000
     environment:
-      - WATCHPACK_POLLING=true
-  db:
-    image: postgres
+      WATCHPACK_POLLING: true
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:16
     container_name: local_pgdb
     restart: always
     ports:
       - 5433:5432
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
+      POSTGRES_USER: rails
+      POSTGRES_PASSWORD: rails
     volumes:
       - local_pgdata:/var/lib/postgresql/data
+    expose:
+      - 5432
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin4_container
@@ -35,6 +56,8 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=admin
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - postgres
 volumes:
   local_pgdata:
   pgadmin-data:
