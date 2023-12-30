@@ -17,7 +17,8 @@ api/.env.local
 api/.env.development.local
 api/.env.test.local
 api/.env.production.local
-api/tmp/*
+api/tmp
+api/log
 
 client/npm-debug.log*
 clinet/yarn-debug.log*

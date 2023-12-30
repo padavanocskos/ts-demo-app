@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1700405321375" clover="3.2.0">
-  <project timestamp="1700405321375" name="All files">
-    <metrics statements="9" coveredstatements="9" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1" elements="17" coveredelements="17" complexity="0" loc="9" ncloc="9" packages="3" files="5" classes="5"/>
-    <package name="ts-demo-app">
+<coverage generated="1703971749767" clover="3.2.0">
+  <project timestamp="1703971749767" name="All files">
+    <metrics statements="9" coveredstatements="9" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1" elements="17" coveredelements="17" complexity="0" loc="9" ncloc="9" packages="3" files="6" classes="6"/>
+    <package name="client">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="jest.config.ts" path="/home/padavanocskos/development/ts-demo-app/jest.config.ts">
+      <file name="jest.config.ts" path="/home/davidb/development/ts-demo-app/client/jest.config.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="vite.config.ts" path="/home/davidb/development/ts-demo-app/client/vite.config.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
-    <package name="ts-demo-app.src">
+    <package name="client.src">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="react-app-env.d.ts" path="/home/padavanocskos/development/ts-demo-app/src/react-app-env.d.ts">
+      <file name="react-app-env.d.ts" path="/home/davidb/development/ts-demo-app/client/src/react-app-env.d.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="reportWebVitals.ts" path="/home/padavanocskos/development/ts-demo-app/src/reportWebVitals.ts">
+      <file name="reportWebVitals.ts" path="/home/davidb/development/ts-demo-app/client/src/reportWebVitals.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="setupTests.ts" path="/home/padavanocskos/development/ts-demo-app/src/setupTests.ts">
+      <file name="setupTests.ts" path="/home/davidb/development/ts-demo-app/client/src/setupTests.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
-    <package name="ts-demo-app.src.utils">
+    <package name="client.src.utils">
       <metrics statements="9" coveredstatements="9" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1"/>
-      <file name="util.ts" path="/home/padavanocskos/development/ts-demo-app/src/utils/util.ts">
+      <file name="util.ts" path="/home/davidb/development/ts-demo-app/client/src/utils/util.ts">
         <metrics statements="9" coveredstatements="9" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="15" type="cond" truecount="5" falsecount="0"/>
