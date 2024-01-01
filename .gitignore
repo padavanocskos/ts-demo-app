@@ -2,8 +2,12 @@
 
 # dependencies
 client/node_modules
+client/package-lock.json
 client/.pnp
 client/.pnp.js
+
+
+client_angular/package-lock.json
 
 # testing
 client/coverage

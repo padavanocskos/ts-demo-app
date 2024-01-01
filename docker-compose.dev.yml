@@ -18,16 +18,39 @@ services:
         DB_HOST: local_pgdb
         DB_USER: rails
         DB_PASSWORD: rails
-  frontend:
-    container_name: frontend-app-dev
-    image: frontend-app-dev-image
+  frontend_react_vite:
+    container_name: frontend-react-dev
+    image: frontend-react-dev-image
     build:
       context: ./client
       target: development
+      args:
+        - NODE_ENV=development
+    tty: true
     volumes:
       - ./client:/app
+      - /app/node_modules/
     ports:
       - 8000:8000
+    environment:
+      WATCHPACK_POLLING: true
+    depends_on:
+      - postgres
+  frontend_angular:
+    container_name: frontend-angular-dev
+    image: frontend-angular-dev-image
+    build:
+      context: ./client_angular
+      target: development
+      args:
+        - NODE_ENV=development
+    volumes:
+      - ./client_angular:/app
+      - /app/node_modules/
+    ports:
+      - 4200:4200
+    expose:
+      - 4200
     environment:
       WATCHPACK_POLLING: true
     depends_on:
