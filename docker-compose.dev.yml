@@ -18,17 +18,17 @@ services:
         DB_HOST: local_pgdb
         DB_USER: rails
         DB_PASSWORD: rails
-  frontend_react_vite:
-    container_name: frontend-react-dev
-    image: frontend-react-dev-image
+  react:
+    container_name: react-dev
+    image: react-dev-image
     build:
-      context: ./client
+      context: ./react
       target: development
       args:
         - NODE_ENV=development
     tty: true
     volumes:
-      - ./client:/app
+      - ./react:/app
       - /app/node_modules/
     ports:
       - 8000:8000
@@ -36,16 +36,16 @@ services:
       WATCHPACK_POLLING: true
     depends_on:
       - postgres
-  frontend_angular:
-    container_name: frontend-angular-dev
-    image: frontend-angular-dev-image
+  angular:
+    container_name: angular-dev
+    image: angular-dev-image
     build:
-      context: ./client_angular
+      context: ./angular
       target: development
       args:
         - NODE_ENV=development
     volumes:
-      - ./client_angular:/app
+      - ./angular:/app
       - /app/node_modules/
     ports:
       - 4200:4200
