@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import type { FC } from 'react'
 import { isPrime } from '../../utils/util'
 
@@ -16,6 +16,22 @@ const Counter: FC<CounterProps> = ({ initialValue }: CounterProps) => {
   const handleDecrement = (): void => {
     setCounter((prevCounter) => prevCounter - 1)
   }
+
+  useEffect(() => {
+    fetch('/user')
+      .then(async (res) => await res.json())
+      .catch((error) => { console.log(error) })
+
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name: 'kakszi', pass: 'almafa'})
+
+    }).then(async (res) => await res.json())
+      .catch((error) => { console.log(error) })
+  }, [])
 
   return (
     <div data-testid="Counter">

@@ -8,7 +8,9 @@ COPY package.json .
 RUN npm i
 # Copy app files
 COPY . .
-# Expose port
+# Expose port react server
 EXPOSE 8000
+# Expose port mocks server
+EXPOSE 8100
 # Start the app
 CMD [ "npm", "start" ]
