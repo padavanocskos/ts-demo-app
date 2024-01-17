@@ -1,6 +1,6 @@
 // jest.config.ts
 export default {
-  preset: "ts-jest",
+  preset: "ts-jest/presets/js-with-ts",
   // transform: { "^.+\\.ts?$": "ts-jest" },
   clearMocks: true,
   collectCoverage: true,
@@ -18,7 +18,8 @@ export default {
   roots: ["<rootDir>"],
   testRegex: "(/tests/jest/.*|(\\.|/)(test|spec))\\.(ts|tsx|js|jsx)$",
   transform: {
-    "^.+\\.[tj]sx?$": "babel-jest",
+    // "^.+\\.[tj]sx?$": "babel-jest",
+    '\\.[jt]sx?$': 'esbuild-jest',
     // "^.+\\.(ts|tsx)$": "ts-jest",
     // "^.+\\.svg$": "<rootDir>/utils/svgTransform.js",
   },

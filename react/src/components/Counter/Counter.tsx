@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import type { FC } from 'react'
 import { isPrime } from '../../utils/util'
+import fetch from 'node-fetch'
 
 interface CounterProps {
   initialValue: number
