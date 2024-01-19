@@ -18,17 +18,17 @@ services:
         DB_HOST: local_pgdb
         DB_USER: rails
         DB_PASSWORD: rails
-  react:
-    container_name: react-dev
-    image: react-dev-image
+  react-npx:
+    container_name: react-npx-dev
+    image: react-npx-dev-image
     build:
-      context: ./react
+      context: ./react-npx
       target: development
       args:
         - NODE_ENV=development
     tty: true
     volumes:
-      - ./react:/app
+      - ./react-npx:/app
       - /app/node_modules/
     ports:
       - 8000:8000

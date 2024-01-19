@@ -13,6 +13,17 @@ export default defineConfig({
             include: '**/*.svg?react'
         })
     ],
+    define: {
+        // By default, Vite doesn't include shims for NodeJS/
+        // necessary for segment analytics lib to work
+        global: {},
+    },
+    resolve: {
+        alias: {
+            'stream' : 'stream-browserify',
+            'node-fetch' : 'node-fetch/lib/index.js',
+        },
+    },
     server: {    
         host: true,
         port: 8000, 

@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
-// import reportWebVitals from './reportWebVitals'
 
 async function enableMocking () {
   if (process.env.NODE_ENV !== 'development') {
@@ -11,21 +10,7 @@ async function enableMocking () {
 
   const { worker } = await import('./mocks/browser')
 
-  return await worker.start({
-    onUnhandledRequest(req, print) {
-      const excloudeRoutes = ['/favicon.ico', '/manifest.json', '/logo192.png', 'chrome-extension://']
-
-      const isExcluded = excloudeRoutes.some((route) => {
-        return req.url.includes(route)
-      })
-
-      if (isExcluded) {
-        return;
-      }
-
-      print.warning();
-    }
-  })
+  return await worker.start()
 }
 
 const root = ReactDOM.createRoot(
