@@ -18,21 +18,20 @@ services:
         DB_HOST: local_pgdb
         DB_USER: rails
         DB_PASSWORD: rails
-  react-npx:
-    container_name: react-npx-dev
-    image: react-npx-dev-image
+  react-vite:
+    container_name: react-vite-dev
+    image: react-vite-dev-image
     build:
-      context: ./react-npx
+      context: ./react
       target: development
       args:
         - NODE_ENV=development
     tty: true
     volumes:
-      - ./react-npx:/app
+      - ./react:/app
       - /app/node_modules/
     ports:
       - 8000:8000
-      - 8100:8100
     environment:
       WATCHPACK_POLLING: true
     depends_on:
