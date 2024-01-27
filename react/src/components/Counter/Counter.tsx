@@ -3,6 +3,7 @@ import type { FC } from 'react'
 import { isPrime } from '../../utils/util'
 // import fetch from 'node-fetch'
 import axios from 'axios'
+import { Button } from '@mui/material'
 
 // fetch.Promise = Promise;
 
@@ -43,8 +44,8 @@ const Counter: FC<CounterProps> = ({ initialValue }: CounterProps) => {
   return (
     <div data-testid="Counter">
       <p>Initial value is <span id="prime-span">{ isPrime(initialValue) ? 'a' : 'not' }</span> prime!</p>
-      <button data-testid="counter-increase" onClick={handleIncrement}>+</button>
-      <button data-testid="counter-decrease" onClick={handleDecrement}>-</button>
+      <Button data-testid="counter-increase" onClick={handleIncrement}>+</Button>
+      <Button data-testid="counter-decrease" onClick={handleDecrement}>-</Button>
       <p>Counter Component: <span data-testid="counter-box">{counter}</span></p>
     </div>
   )
