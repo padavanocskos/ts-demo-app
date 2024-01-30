@@ -3,7 +3,9 @@ import type { FC } from 'react'
 import { isPrime } from '../../utils/util'
 // import fetch from 'node-fetch'
 import axios from 'axios'
-import { Button } from '@mui/material'
+import { Box, InputAdornment, OutlinedInput } from '@mui/material'
+import { AddCircle, RemoveCircle } from '@mui/icons-material'
+
 
 // fetch.Promise = Promise;
 
@@ -27,7 +29,7 @@ const Counter: FC<CounterProps> = ({ initialValue }: CounterProps) => {
       console.log(res)
     }).catch(e => {
       console.log(e.message)
-    })
+      })
   //   fetch('http://localhost:8000/user')
   //     .then(async (res) => await res.json())
   //     .catch((error) => { console.log(error) })
@@ -41,13 +43,27 @@ const Counter: FC<CounterProps> = ({ initialValue }: CounterProps) => {
   //     .catch((error) => { console.log(error) })
   }, [])
 
+  const newLocal = "counter-decrease"
   return (
-    <div data-testid="Counter">
+    <Box data-testid="Counter">
       <p>Initial value is <span id="prime-span">{ isPrime(initialValue) ? 'a' : 'not' }</span> prime!</p>
-      <Button data-testid="counter-increase" onClick={handleIncrement}>+</Button>
-      <Button data-testid="counter-decrease" onClick={handleDecrement}>-</Button>
-      <p>Counter Component: <span data-testid="counter-box">{counter}</span></p>
-    </div>
+      <OutlinedInput
+        id="outlined-basic"
+        value={counter}
+        startAdornment={
+          <InputAdornment position="start">
+            <AddCircle data-testid="counter-increase" onClick={handleIncrement} fontSize="small" />
+          </InputAdornment>}
+        endAdornment={
+          <InputAdornment position="end">
+            <RemoveCircle data-testid={newLocal} onClick={handleDecrement} fontSize="small" />
+          </InputAdornment>
+        }
+        sx={{ width: '8em'}}
+        inputProps={{ style: { textAlign: 'center' } }}
+      />
+      {/* <span data-testid="counter-box">{counter}</span> */}
+    </Box>
   )
 }
 
