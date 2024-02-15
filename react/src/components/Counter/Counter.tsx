@@ -158,7 +158,7 @@ const Counter: FC<CounterProps> = ({ initialValue }: CounterProps) => {
     p: 4,
   };
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState<boolean>(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
