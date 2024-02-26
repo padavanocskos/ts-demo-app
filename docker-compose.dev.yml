@@ -4,10 +4,18 @@ services:
   api:
     container_name: rails-api-dev
     image: api-app-dev-image
+    command: [bundle, exec, rdbg, -n, --open, --host, 0.0.0.0, --port=12345, -c, --, rails, server, -b, '0.0.0.0']
     ports:
       - '3000:3000'
+      - '12345:12345'
+    expose:
+      - 3000
+      - 12345
     build:
       context: ./api
+    entrypoint: ./bin/docker-entrypoint
+    tty: true
+    stdin_open: true
     volumes:
       - ./api:/rails
     depends_on:
@@ -32,10 +40,10 @@ services:
       - /app/node_modules/
     ports:
       - 8000:8000
+    expose:
+      - 8000
     environment:
       WATCHPACK_POLLING: true
-    depends_on:
-      - postgres
   angular:
     container_name: angular-dev
     image: angular-dev-image
@@ -53,17 +61,15 @@ services:
       - 4200
     environment:
       WATCHPACK_POLLING: true
-    depends_on:
-      - postgres
   postgres:
     image: postgres:16
     container_name: local_pgdb
-    restart: always
-    ports:
-      - 5433:5432
     environment:
       POSTGRES_USER: rails
       POSTGRES_PASSWORD: rails
+    restart: always
+    ports:
+      - 5432:5432
     volumes:
       - local_pgdata:/var/lib/postgresql/data
     expose:

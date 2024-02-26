@@ -2,8 +2,8 @@ import { HttpResponse, http } from 'msw'
 
 // These request handlers focus on the endpoints
 // that concern the user.
-export const handlers = [
-  http.get('/user', () => {
+export const userHandlers = [
+  http.get('/users', () => {
     return HttpResponse.json({ name: 'John Maverick' })
   }),
   // http.get('/user', getUserResolver),

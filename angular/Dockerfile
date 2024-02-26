@@ -3,11 +3,13 @@ ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 # Add a work directory
 WORKDIR /app
-# Cache and Install dependencies
-COPY package.json .
-RUN npm i
 # Copy app files
 COPY . .
+# Cache and Install dependencies
+COPY package.json .
+RUN npm config set registry https://registry.npmjs.org/
+RUN npm i -g pnpm
+RUN pnpm i --verbose
 # Expose port
 EXPOSE 4200
 # Start the app
