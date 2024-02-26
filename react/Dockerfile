@@ -5,7 +5,7 @@ ENV NODE_ENV $NODE_ENV
 WORKDIR /app
 # Cache and Install dependencies
 COPY package.json .
-RUN npm i
+RUN npm i --verbose
 # Copy app files
 COPY . .
 # Expose port react server

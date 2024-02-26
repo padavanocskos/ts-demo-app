@@ -9,6 +9,9 @@ import RootLayout from './pages/Root';
 import HomePage from './pages/Home';
 import RollListPage from './pages/RollList';
 import ErrorPage from './pages/Error';
+import Storages from './components/Storages/Storages';
+import Partners from './components/Partners/Partners';
+import Contacts from './components/Partners/Contacts/Contacts';
 
 const App: FC = () => {
   const router = createBrowserRouter([
@@ -18,7 +21,10 @@ const App: FC = () => {
       errorElement: <ErrorPage />,
       children: [
         { path: '/', element: <HomePage />},
-        { path: '/mill-rolls', element: <RollListPage />}
+        { path: '/mill-rolls', element: <RollListPage />},
+        { path: '/storages', element: <Storages />},
+        { path: '/partners', element: <Partners />},
+        { path: '/partners/contacts', element: <Contacts />},
       ]
     }
   ])

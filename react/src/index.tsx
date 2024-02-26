@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
 import 'typeface-roboto'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 // import reportWebVitals from './reportWebVitals'
 
@@ -34,10 +35,14 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
 
+const queryClient = new QueryClient()
+
 enableMocking().then(() => {
   root.render(
   <React.StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient} >
+      <App />
+    </QueryClientProvider>
   </React.StrictMode>
   )
 }).catch((error) => { console.log(error) })

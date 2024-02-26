@@ -1,6 +1,16 @@
-import { FC } from "react"
+import { FC, useEffect } from "react"
+import axios from "axios"
 
 const HomePage: FC = () => {
+  useEffect(() => {
+    axios.get('/contacts', { params: { limit: 10, offset: 0 }})
+      .then((response) => {
+        console.log(response)
+      }).catch((error) => {
+        console.log("ERROR" + error)
+      })
+  }, [])
+
   return (
     <div>
       {[...new Array(100)]
