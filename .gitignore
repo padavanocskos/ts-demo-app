@@ -5,6 +5,7 @@ react/node_modules
 react/package-lock.json
 react/.pnp
 react/.pnp.js
+react/.pnpm-store
 
 
 react_angular/package-lock.json
