@@ -4,6 +4,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     origins 'localhost:8000'
     resource '/api/v1/contacts', headers: :any, methods: [:get, :post, :patch, :put]
+    resource '/api/v1/cores', headers: :any, methods: [:get, :post, :patch, :put]
   end
 end
 

@@ -23,7 +23,6 @@ module Api
       private
 
       def contact_params
-        puts 'alma'
         params.require(:contact).permit(:first_name, :last_name, :middle_name, :phone1, :phone2, :mobile1, :mobile2) # Add the permitted attributes here
       end
     end

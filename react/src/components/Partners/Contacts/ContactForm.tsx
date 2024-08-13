@@ -29,9 +29,6 @@ const validationSchema = yup.object({
   firstName: yup
     .string()
     .required('First name is required'),
-  middleName: yup
-    .string()
-    .required('Middle name is required'),
   lastName: yup
     .string()
     .required('Last name is required'),

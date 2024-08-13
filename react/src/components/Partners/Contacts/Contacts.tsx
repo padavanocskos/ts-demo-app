@@ -21,7 +21,7 @@ const Contacts: FC = () => {
     const response = await axios.get(`http://localhost:3000/api/v1/contacts`,
                                      {
                                       params: { paginationModel, ...queryOptions, columns: columns },
-                                      paramsSerializer: paramsSerializer                                     
+                                      paramsSerializer: paramsSerializer
                                      }
                                  )
                                  .catch((error) => console.log(error))

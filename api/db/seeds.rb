@@ -25,3 +25,14 @@ require 'faker'
     }
   )
 end
+
+60.times do |i|
+  Core.create!(
+    {
+      core_number: i + 1,
+      weight: Faker::Number.between(from: 1950, to: 2235),
+      is_faulty: Faker::Boolean.boolean(true_ratio: 0.2),
+      notice: Faker::Lorem.sentences,
+    }
+  )
+end

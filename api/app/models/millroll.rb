@@ -1,0 +1,2 @@
+class Millroll < ApplicationRecord
+end

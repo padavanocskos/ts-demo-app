@@ -12,6 +12,9 @@ const MainNavigation: FC = () => {
           <li>
             <Link to="/mill-rolls">Mill-Rolls</Link>
           </li>
+          <li>
+            <Link to="/cores">Cores</Link>
+          </li>
         </ul> 
       </nav>
     </>
