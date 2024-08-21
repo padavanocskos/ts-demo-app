@@ -1,0 +1,2 @@
+class ProductionMaterialTypeManifest < ApplicationRecord
+end

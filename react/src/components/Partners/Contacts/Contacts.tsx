@@ -1,11 +1,12 @@
-import React, { FC, useCallback, useEffect, useState } from "react"
+import React, { FC, SyntheticEvent, useCallback, useEffect, useState } from "react"
 import IContact from "./IContact"
 import { DataGrid, GridColDef, GridFilterModel, GridSortModel, GridRowSelectionModel } from '@mui/x-data-grid'
 import axios from 'axios'
 import { useQuery } from "react-query"
 import { paramsSerializer } from "../../../utils/paramsSerializer"
-import { Box, Button, Grid, Modal, TextField } from "@mui/material"
+import { Accordion, AccordionSummary, Box, Button, Card, Divider, Grid, Icon, IconButton, Modal, TextField, Typography } from "@mui/material"
 import ContactForm from "./ContactForm"
+import { FilterAltOutlined } from "@mui/icons-material"
 
 const Contacts: FC = () => {
   const [paginationModel, setPaginationModel] = useState({
@@ -29,6 +30,9 @@ const Contacts: FC = () => {
     return response?.data
   }
 
+  // Ezt kell modositani, ugy ,hogy a custom search form is kepes legyen modositani a filterModelt.
+  // Szerintem ha kezzel tobb itemet allitunk be neki akkor is siman mukodni fog.
+  // Ha nem sikerul akkor meg at lehet gondolni a sima Table hasnzalatat a datagrid helyett, bar szerintem az csak specialis esetben szukseges
   const handleFilterChange = (filterModel: GridFilterModel) => {
     setQueryOptions({ ...queryOptions, filterModel: { ...filterModel } });
   }
@@ -67,16 +71,73 @@ const Contacts: FC = () => {
     { field: 'mobile2', headerName: 'Mobile 2', type: 'string' },
   ]
 
+  const [searchFormIsVisible, setSearchFormIsVisible] = useState(false)
+
+  const handleShowSearchForm = (e: SyntheticEvent) => {
+    if (searchFormIsVisible) {
+      setSearchFormIsVisible(false)
+    } else {
+      setSearchFormIsVisible(true)
+    }
+  }
+
   // TODO: add loader to initial state, when table data is loading
   return(
     <>
-      <Button variant='contained' onClick={handleOpen}>Add</Button>
-      <Button variant='contained' color='error'>Delete</Button>
+
       <Modal open={open} onClose={handleClose}>
           <ContactForm />
         {/* </Box> */}
       </Modal>
-      <Box sx={{ height: 400 }}>
+
+      <Typography variant="h3" gutterBottom>Contacts</Typography>
+      <Box sx={{
+        // display: 'flex',
+        alignItems: 'center',
+        border: '1px solid',
+        borderColor: 'divider',
+        borderRadius: 2,
+        bgcolor: 'background.paper',
+        color: 'text.secondary',
+        // '& svg': {
+        //   m: 0.1
+        // },
+        '& hr': {
+          mx: 0.5,
+        },
+       }}>
+        <Card
+          variant="outlined"
+          sx={{
+            display: 'flex',
+            alignItems: 'flex-end',
+            justifyContent: 'flex-end',
+            padding: '20px',
+            '& svg': {
+              m: 1,
+            },
+            '& hr': {
+              mx: 0.5,
+            },
+          }}
+        >
+          <IconButton onClick={ handleShowSearchForm }><FilterAltOutlined /></IconButton>
+          <Button variant='contained' onClick={handleOpen} sx={{ margin: '8px' }}>Add</Button>
+          <Button variant='contained' color='error' sx={{ margin: '8px' }}>Delete</Button>
+        </Card>
+        {searchFormIsVisible && (<Card id="search">
+          <Box sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyItems: "center",
+            padding: '20px',
+            gap: '10px'
+          }}>
+            <TextField label="First Name" />
+            <TextField label="Last Name" />
+            <TextField label="Middle Name" />
+          </Box>
+        </Card>)}
         <DataGrid
           rows={data?.rows || []}
           columns={columns}
