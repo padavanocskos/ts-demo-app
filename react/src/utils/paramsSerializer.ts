@@ -1,23 +1,23 @@
 import { GridFilterItem, GridFilterModel, GridSortModel } from '@mui/x-data-grid'
 import * as qs from 'qs'
 import _ from 'lodash'
+import GridSearchFormTextInputOperatorEnum from '../components/shared/grid/search_form/GridSearchFormTextInputOperatorEnum'
 
 const processFilters = (filterModel: GridFilterModel, columns: []) => {
   const operatorMap = {
-    'contains': 'cont',
-    'equals': 'eq',
-    'startsWith': 'start',
-    'endsWith': 'end',
-    'isEmpty': 'blank',
-    'isNotEmpty': 'present',
-    'isAnyOf': 'cont_any'
+    [GridSearchFormTextInputOperatorEnum.Contains]: 'cont',
+    [GridSearchFormTextInputOperatorEnum.Equals]: 'eq',
+    [GridSearchFormTextInputOperatorEnum.StartsWith]: 'start',
+    [GridSearchFormTextInputOperatorEnum.EndsWith]: 'end',
+    [GridSearchFormTextInputOperatorEnum.IsEmpty]: 'blank',
+    [GridSearchFormTextInputOperatorEnum.IsNotEmpty]: 'present',
+    [GridSearchFormTextInputOperatorEnum.IsAnyOf]: 'cont_any'
   }
 
-  // currently work for only single filter item
   // TODO: Add quick filter
   let filters = {}
   _.forEach(filterModel.items, (item: GridFilterItem) => {
-    filters =  { ...filters, [`${item.field}_${operatorMap[item.operator]}`]: item.value ?? ''}
+    filters =  { ...filters, [`${item.field}_${operatorMap[item.operator as keyof typeof operatorMap]}`]: item.value ?? ''}
   })
   
   // if filterModel.quickFilterItems not empty
@@ -45,6 +45,7 @@ const processFilters = (filterModel: GridFilterModel, columns: []) => {
     filters = { ...filters, [`${quickFilter}_cont_any`]: [ ...filterModel.quickFilterValues] }
   }
 
+  console.log("FILTERS: ", filters)
   return filters
 }
 

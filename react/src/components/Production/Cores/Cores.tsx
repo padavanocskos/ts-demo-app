@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import { paramsSerializer } from "../../../utils/paramsSerializer";
 import EditIcon from '@mui/icons-material/Edit';
 import { Delete } from "@mui/icons-material";
-import ContactForm from "../../Partners/Contacts/ContactForm";
+import ContactForm from "../../Partners/Contacts/Forms/ContactForm";
 
 const Cores: FC = () => {
   const [paginationModel, setPaginationModel] = useState({
