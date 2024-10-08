@@ -1,7 +1,7 @@
 import { GridFilterItem, GridFilterModel, GridSortModel } from '@mui/x-data-grid'
 import * as qs from 'qs'
 import _ from 'lodash'
-import GridSearchFormTextInputOperatorEnum from '../components/shared/grid/search_form/GridSearchFormTextInputOperatorEnum'
+import GridSearchFormTextInputOperatorEnum from '../components/shared/grid/search_form/TextInput/GridSearchFormTextInputOperatorEnum'
 
 const processFilters = (filterModel: GridFilterModel, columns: []) => {
   const operatorMap = {
@@ -16,8 +16,9 @@ const processFilters = (filterModel: GridFilterModel, columns: []) => {
 
   // TODO: Add quick filter
   let filters = {}
+    console.log("FILTER MODEL ITEMS:", filterModel.items)
   _.forEach(filterModel.items, (item: GridFilterItem) => {
-    filters =  { ...filters, [`${item.field}_${operatorMap[item.operator as keyof typeof operatorMap]}`]: item.value ?? ''}
+    filters =  { ...filters, [`${item.field}_${operatorMap[item.operator as keyof typeof operatorMap]}`]: item.value ?? '' }
   })
   
   // if filterModel.quickFilterItems not empty
@@ -65,7 +66,10 @@ export const paramsSerializer = (params) => {
 
   if ('filterModel' in params) {
     const filters = processFilters(params.filterModel, params.columns)
-    q = { ...q, ...filters }
+    // drop empty values
+    const a = Object.fromEntries(Object.entries(filters).filter(([_,value]) => value))
+    // q = { ...q, ...filters }
+    q = { ...q, ...a }
     paramsObject = { ...paramsObject, q: q }
   }
 
