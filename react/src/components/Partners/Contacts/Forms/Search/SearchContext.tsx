@@ -1,36 +1,51 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 import searchReducer, { initialState } from "./searchReducer";
+import { GridFilterItem } from "@mui/x-data-grid";
 
-const SearchContext = createContext(initialState)
+const SearchContext = createContext(initialState);
 
 export const SearchProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(searchReducer, initialState)
+  const [state, dispatch] = useReducer(searchReducer, initialState);
+  const [flag, setFlag] = useState(true);
 
-  const addToSearch = (field) => {
+  const addToSearch = (filterItem: GridFilterItem) => {
     dispatch({
       type: "ADD_TO_SEARCH",
       payload: {
-        fields: field
-      }
-    })
-  }
+        gridFilterItem: filterItem,
+      },
+    });
+  };
+
+  const resetSearchState = () => {
+    setFlag(false);
+    dispatch({
+      type: "RESET_SEARCH_STATE",
+      payload: {},
+    });
+  };
 
   const value = {
     fields: state,
-    addToSearch
-  }
+    flag: flag,
+    setFlag: setFlag,
+    addToSearch,
+    resetSearchState,
+  };
 
-  return <SearchContext.Provider value={value}>{children}</SearchContext.Provider>
-}
+  return (
+    <SearchContext.Provider value={value}>{children}</SearchContext.Provider>
+  );
+};
 
 const useSearch = () => {
-  const context = useContext(SearchContext)
+  const context = useContext(SearchContext);
 
   if (context === undefined) {
-    throw new Error("useSearch must be used within SearchContext")
+    throw new Error("useSearch must be used within SearchContext");
   }
 
-  return context
-}
+  return context;
+};
 
-export default useSearch
+export default useSearch;

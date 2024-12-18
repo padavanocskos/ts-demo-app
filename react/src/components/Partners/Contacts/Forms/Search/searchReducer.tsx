@@ -6,12 +6,25 @@ export const initialState = {
 const searchReducer = (state, action) => {
   const { type, payload} = action;
 
-  console.log("ALMAFA", state)
   switch (type) {
     case "ADD_TO_SEARCH":
+      console.log("PAYLOAD:", payload)
       return {
         ...state,
-        payload
+        fields: {
+          ...state.fields,
+          [payload.gridFilterItem.name]: {
+            id: payload.gridFilterItem.id,
+            name: payload.gridFilterItem.name,
+            value: payload.gridFilterItem.value,
+            operator: payload.gridFilterItem.operator
+          }
+        }
+      }
+    case "RESET_SEARCH_STATE":
+      return {
+        ...state,
+        fields: []
       }
   }
 }

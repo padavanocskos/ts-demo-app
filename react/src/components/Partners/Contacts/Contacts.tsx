@@ -1,10 +1,10 @@
-import React, { createContext, FC, useCallback, useEffect, useState } from "react"
+import React, { FC, useCallback, useEffect, useState } from "react"
 import IContact from "./IContact"
-import { DataGrid, GridColDef, GridFilterModel, GridSortModel, GridRowSelectionModel, GridLogicOperator, GridFilterItem, GridFilterForm } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridFilterModel, GridSortModel, GridRowSelectionModel } from '@mui/x-data-grid'
 import axios from 'axios'
 import { useQuery } from "react-query"
 import { paramsSerializer } from "../../../utils/paramsSerializer"
-import { Box, Button, Card, FormControl, FormLabel, Modal, Switch, TextField, Typography } from "@mui/material"
+import { Box, Button, Card, FormLabel, Modal, Switch, Typography } from "@mui/material"
 import ContactForm from "./Forms/ContactForm"
 import { SearchProvider } from "./Forms/Search/SearchContext"
 import GridSearchbar from "./Forms/Search/GridSearchbar"
@@ -73,11 +73,11 @@ const Contacts: FC = () => {
   ]
   
   const searchFields = [
-                      { field: 'first_name' },
-                      { field: 'last_name' },
-                      { field: 'middle_name' },
-                      { field: 'phone_1' },
-                      { field: 'mobile_1' },
+                      { field: 'first_name', simple: true },
+                      { field: 'last_name', simple: true },
+                      { field: 'middle_name', simple: true },
+                      { field: 'phone_1', simple: true },
+                      { field: 'mobile_1', simple: true },
                     ]
 
   const [searchbarIsVisible, setSearchbarIsVisible] = useState<boolean>(false)
@@ -126,7 +126,9 @@ const Contacts: FC = () => {
           <Button variant='contained' onClick={handleOpen} sx={{ margin: '8px' }}>Add</Button>
           <Button variant='contained' color='error' sx={{ margin: '8px' }}>Delete</Button>
         </Card>
-        <GridSearchbar searchbarIsVisible={searchbarIsVisible} queryOptions={queryOptions} setQueryOptions={setQueryOptions} fieldDefs={searchFields} />
+        <SearchProvider>
+          <GridSearchbar searchbarIsVisible={searchbarIsVisible} queryOptions={queryOptions} setQueryOptions={setQueryOptions} fieldDefs={searchFields} />
+        </SearchProvider>
         <DataGrid
           rows={data?.rows || []}
           columns={columns}

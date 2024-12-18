@@ -1,11 +1,9 @@
 import { useCallback, useState } from "react"
-import SearchItem from "../objects/SearchItemObject"
-
 const useFieldsState = (fieldDefs = {}) => {
   let fields = {}
 
-  for (let item in fieldDefs) {
-      fields[fieldDefs[item].field] = new (SearchItem as any)("")
+  for (let item: GridFilterItem in fieldDefs) {
+      fields[fieldDefs[item].field] = item
   }
 
   const [fieldsState, setFieldsState] = useState(fields)
