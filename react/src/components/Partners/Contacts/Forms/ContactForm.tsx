@@ -38,7 +38,6 @@ function camelToSnake(obj) {
 const ContactForm: FC = () => {
   const mutation = useMutation({
     mutationFn: (contact) => {
-      console.log("HELLO BELLO", camelToSnake(contact));
       return axios.post(
         `http://localhost:3000/api/v1/contacts`,
         camelToSnake(contact)
@@ -62,9 +61,9 @@ const ContactForm: FC = () => {
   });
 
   const fields = [
-    { id: "firstName", label: "First name", name: "firstName" },
-    { id: "middleName", label: "Middle name", name: "middleName" },
-    { id: "lastName", label: "Last name", name: "lastName" },
+    { id: "firstName", label: "Firstname", name: "firstName" },
+    { id: "middleName", label: "Middlename", name: "middleName" },
+    { id: "lastName", label: "Lastname", name: "lastName" },
     { id: "email", label: "Email", name: "email" },
     { id: "phone1", label: "Phone 1", name: "phone1" },
     { id: "phone2", label: "Phone 2", name: "phone2" },

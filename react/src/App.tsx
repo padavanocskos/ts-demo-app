@@ -1,35 +1,37 @@
-import type { FC } from 'react'
-import './App.css'
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import RootLayout from './pages/Root';
-import HomePage from './pages/Home';
-import RollListPage from './pages/RollList';
-import ErrorPage from './pages/Error';
-import Storages from './components/Storages/Storages';
-import Partners from './components/Partners/Partners';
-import Contacts from './components/Partners/Contacts/Contacts';
-import Cores from './components/Production/Cores/Cores';
+import type { FC } from "react";
+import "./App.css";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import RootLayout from "./pages/Root";
+import HomePage from "./pages/Home";
+import RollListPage from "./pages/RollList";
+import ErrorPage from "./pages/Error";
+import Storages from "./components/Storages/Storages";
+import Partners from "./components/Partners/Partners";
+import Contacts from "./components/Partners/Contacts/Contacts";
+import Cores from "./components/Production/Cores/Cores";
+import Counter from "./components/Counter/Counter";
 
 const App: FC = () => {
   const router = createBrowserRouter([
-    { 
-      path: '/',
+    {
+      path: "/",
       element: <RootLayout />,
       errorElement: <ErrorPage />,
       children: [
-        { path: '/', element: <HomePage />},
-        { path: '/mill-rolls', element: <RollListPage />},
-        { path: '/storages', element: <Storages />},
-        { path: '/partners', element: <Partners />},
-        { path: '/partners/contacts', element: <Contacts />},
-        { path: '/production/cores', element: <Cores />},
-      ]
-    }
-  ])
+        { path: "/", element: <HomePage /> },
+        { path: "/mill-rolls", element: <RollListPage /> },
+        { path: "/storages", element: <Storages /> },
+        { path: "/partners", element: <Partners /> },
+        { path: "/partners/contacts", element: <Contacts /> },
+        { path: "/production/cores", element: <Cores /> },
+        // { path: "/counter", element: <Counter initialValue={4} /> },
+      ],
+    },
+  ]);
   return (
     <>
       {/* <BrowserRouter>
@@ -44,9 +46,9 @@ const App: FC = () => {
         <Counter initialValue={4} />
       </div> */}
       <RouterProvider router={router} />
-        {/* <Counter initialValue={4} */}
+      {/* <Counter initialValue={4} */}
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

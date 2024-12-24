@@ -20,10 +20,20 @@ module Api
         end
       end
 
+      # move this to API controller
+      # add service for merge this metadata with FE vardefs
+      def fields_meta_data
+        ret = []
+        Contact.columns_hash.each do |k,v|
+          ret << { name: k.underscore, label: I18n.t("contact.#{k}"), type: v.type }
+        end
+        render json: { field_defs: ret }
+      end
+
       private
 
       def contact_params
-        params.require(:contact).permit(:first_name, :last_name, :middle_name, :phone1, :phone2, :mobile1, :mobile2) # Add the permitted attributes here
+        params.require(:contact).permit(:first_name, :last_name, :middle_name, :phone1, :phone2, :mobile1, :mobile2) # A dd the permitted attributes here
       end
     end
   end

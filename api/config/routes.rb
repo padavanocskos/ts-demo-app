@@ -7,7 +7,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :contacts
+      resources :contacts do
+        collection do
+          get :fields_meta_data
+        end
+      end
       resources :cores
     end
   end

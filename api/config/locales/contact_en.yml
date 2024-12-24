@@ -1,0 +1,13 @@
+en:
+  contact:
+    id: 'ID'
+    first_name: 'Firstname'
+    last_name: 'Lastname'
+    middle_name: 'Middlename'
+    email: 'Email'
+    phone1: 'Phone 1'
+    phone2: 'Phone 2'
+    mobile1: 'Mobile 1'
+    mobile2: 'Mobile 2'
+    created_at: 'Created'
+    updated_at: 'Updated'
