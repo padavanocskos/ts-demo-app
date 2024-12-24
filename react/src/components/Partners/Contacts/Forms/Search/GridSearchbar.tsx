@@ -7,17 +7,24 @@ import {
   Switch,
 } from "@mui/material";
 import { FC, useEffect, useState } from "react";
-import GridSearchFormAdvancedTextInputGroup from "../../../../shared/grid/search_form/TextInput/GridSearchFormAdvancedTextInputGroup";
 import {
   GridFilterModel,
   GridLogicOperator,
   GridFilterItem,
 } from "@mui/x-data-grid";
-import SearchForm from "./SearchForm";
 import useSearch from "./SearchContext";
 import { publish } from "../../Events/customEvent";
+import AdvancedSearchForm from "./AdvancedSearchForm";
+import SimpleSearchForm from "./SimpleSearchForm";
 
-const GridSearchbar: FC = ({
+interface GridSearchbarProps {
+  searchbarIsVisible?: boolean;
+  queryOptions: any;
+  setQueryOptions: (options: any) => void;
+  fieldDefs: any[];
+}
+
+const GridSearchbar: FC<GridSearchbarProps> = ({
   searchbarIsVisible = false,
   queryOptions,
   setQueryOptions = (f) => f,
@@ -25,10 +32,6 @@ const GridSearchbar: FC = ({
 }) => {
   const isVisible = searchbarIsVisible;
   const [advancedChecked, setAdvancedChecked] = useState<boolean>(false);
-  const advancedSearchInputStyle = {
-    variant: "standard",
-    sx: { display: "flex", flexDirection: "row", gap: "1em" },
-  };
   const filterModelInitial = {
     items: [],
     logicOperator: GridLogicOperator.And,
@@ -37,20 +40,6 @@ const GridSearchbar: FC = ({
     useState<GridFilterModel>(filterModelInitial);
   const handleClear = () => {
     resetSearchContextState();
-  };
-  const handleSearch = (
-    id: string,
-    name: string,
-    value: string,
-    logicalOperator: string
-  ) => {
-    addSearchItemToGridFilterModel({
-      id: id,
-      field: name,
-      value: value,
-      operator: logicalOperator,
-    });
-    setQueryOptions({ ...queryOptions, filterModel: { ...gridFilterModel } });
   };
   const addSearchItemToGridFilterModel = (item: GridFilterItem) => {
     let change = false;
@@ -84,14 +73,13 @@ const GridSearchbar: FC = ({
 
   useEffect(() => {
     const searchItems = Object.entries(searchContextState.fields);
-    console.log(searchContextState);
     if (searchItems.length === 0 && searchContextFlag === false) {
       publish("clearSearchContextFields");
       setGridFilterModel(filterModelInitial);
       setSearchContextFlag(true);
     } else {
       searchItems.forEach((item) => {
-        const field = item[1];
+        const field: GridFilterItem = item[1];
         addSearchItemToGridFilterModel({
           id: field.id,
           field: field.name,
@@ -143,59 +131,11 @@ const GridSearchbar: FC = ({
             >
               {advancedChecked ? (
                 <>
-                  {/* <GridSearchFormTextInput name="first_name" label="First name" handleSearchModelChange={handleSearch} /> */}
-                  <GridSearchFormAdvancedTextInputGroup
-                    name="first_name"
-                    label="First name"
-                    handleOnChange={handleSearch}
-                    {...advancedSearchInputStyle}
-                  />
-                  <GridSearchFormAdvancedTextInputGroup
-                    name="middle_name"
-                    label="Middle name"
-                    handleOnChange={handleSearch}
-                    {...advancedSearchInputStyle}
-                  />
-                  <GridSearchFormAdvancedTextInputGroup
-                    name="last_name"
-                    label="Last name"
-                    handleOnChange={handleSearch}
-                    {...advancedSearchInputStyle}
-                  />
-                  <GridSearchFormAdvancedTextInputGroup
-                    name="email"
-                    label="Email"
-                    handleOnChange={handleSearch}
-                    {...advancedSearchInputStyle}
-                  />
-                  <GridSearchFormAdvancedTextInputGroup
-                    name="mobile1"
-                    label="Mobile 1"
-                    handleOnChange={handleSearch}
-                    {...advancedSearchInputStyle}
-                  />
-                  <GridSearchFormAdvancedTextInputGroup
-                    name="mobile2"
-                    label="Mobile 2"
-                    handleOnChange={handleSearch}
-                    {...advancedSearchInputStyle}
-                  />
-                  <GridSearchFormAdvancedTextInputGroup
-                    name="phone1"
-                    label="Phone 1"
-                    handleOnChange={handleSearch}
-                    {...advancedSearchInputStyle}
-                  />
-                  <GridSearchFormAdvancedTextInputGroup
-                    name="phone2"
-                    label="Phone 2"
-                    handleOnChange={handleSearch}
-                    {...advancedSearchInputStyle}
-                  />
+                  <AdvancedSearchForm fields={fieldDefs} />
                 </>
               ) : (
                 <>
-                  <SearchForm fields={fieldDefs} />
+                  <SimpleSearchForm fields={fieldDefs} />
                 </>
               )}
             </FormControl>
