@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useMutation } from "react-query";
 import axios from "axios";
+import { p } from "msw/lib/core/GraphQLHandler-bom2Dn82";
 
 const style = {
   position: "absolute" as "absolute",
@@ -17,9 +18,10 @@ const style = {
   p: 4,
 };
 
+// TODO: Create yup validaton by yaml schema
 const validationSchema = yup.object({
-  firstName: yup.string().required("First name is required"),
-  lastName: yup.string().required("Last name is required"),
+  first_name: yup.string().required("First name is required"),
+  last_name: yup.string().required("Last name is required"),
   email: yup.string().email().required("Email is required"),
 });
 
@@ -35,24 +37,27 @@ function camelToSnake(obj) {
   return snakeObj;
 }
 
-const ContactForm: FC = () => {
+const ContactForm: FC = (props) => {
+  const { fields } = props;
+  console.log("FIELDS", fields);
   const mutation = useMutation({
     mutationFn: (contact) => {
       return axios.post(
         `http://localhost:3000/api/v1/contacts`,
-        camelToSnake(contact)
+        // camelToSnake(contact)
+        contact
       );
     },
   });
 
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
-      middleName: "",
-      email: "",
-      phone1: "",
-      phone2: "",
+      // firstName: "",
+      // lastName: "",
+      // middleName: "",
+      // email: "",
+      // phone1: "",
+      // phone2: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -60,41 +65,37 @@ const ContactForm: FC = () => {
     },
   });
 
-  const fields = [
-    { id: "firstName", label: "Firstname", name: "firstName" },
-    { id: "middleName", label: "Middlename", name: "middleName" },
-    { id: "lastName", label: "Lastname", name: "lastName" },
-    { id: "email", label: "Email", name: "email" },
-    { id: "phone1", label: "Phone 1", name: "phone1" },
-    { id: "phone2", label: "Phone 2", name: "phone2" },
-    { id: "mobile1", label: "Mobile 1", name: "mobile1" },
-    { id: "mobile2", label: "Mobile 2", name: "mobile2" },
-  ];
-
   return (
     // Rewritten code to address the performance issues
     <Box sx={style} component="form" onSubmit={formik.handleSubmit}>
       <Grid container spacing={1}>
-        {fields.map((field) => (
-          <Grid item xs={12} md={6} key={field.id}>
-            <TextField
-              id={field.id}
-              key={field.id}
-              name={field.name}
-              variant="outlined"
-              label={field.label}
-              error={
-                formik.touched[field.name] && Boolean(formik.errors[field.name])
-              }
-              value={formik.values[field.name]}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              helperText={
-                formik.touched[field.name] && formik.errors[field.name]
-              }
-            />
-          </Grid>
-        ))}
+        {fields.map((field) => {
+          if (field.name === "id") {
+            return null;
+          }
+          // Implement mui input in formik, and create input fields based on the fields metadata
+          return (
+            <Grid item xs={12} md={6} key={field.id}>
+              <TextField
+                id={field.id}
+                key={field.id}
+                name={field.name}
+                variant="outlined"
+                label={field.label}
+                error={
+                  formik.touched[field.name] &&
+                  Boolean(formik.errors[field.name])
+                }
+                value={formik.values[field.name]}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                helperText={
+                  formik.touched[field.name] && formik.errors[field.name]
+                }
+              />
+            </Grid>
+          );
+        })}
         <Grid item xs={12}>
           <Button type="submit" variant="outlined">
             Create

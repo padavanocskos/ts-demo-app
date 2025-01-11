@@ -12,16 +12,23 @@ require 'faker'
 # Contacts
 
 100.times do
+  created_at = Faker::Time.between(from: DateTime.parse('2020-01-01 00:00:00'), to: DateTime.now - 10)
+  updated_at = created_at + rand(1..10).days
+
   Contact.create!(
     {
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
       middle_name: Faker::Name.middle_name,
+      age: Faker::Number.between(from: 5, to: 99),
+      birthdate: Faker::Date.birthday(min_age: 5, max_age: 99),
       email: Faker::Internet.email,
       phone1: Faker::PhoneNumber.phone_number,
       phone2: Faker::PhoneNumber.phone_number,
       mobile1: Faker::PhoneNumber.cell_phone,
-      mobile2: Faker::PhoneNumber.cell_phone
+      mobile2: Faker::PhoneNumber.cell_phone,
+      created_at: created_at,
+      updated_at: updated_at
     }
   )
 end
@@ -32,12 +39,12 @@ end
       core_number: i + 1,
       weight: Faker::Number.between(from: 1950, to: 2235),
       is_faulty: Faker::Boolean.boolean(true_ratio: 0.2),
-      notice: Faker::Lorem.sentences.join(' '),
+      notice: Faker::Lorem.sentences.join(' ')
     }
   )
 end
 
-product_names = [:tnk, :xrdh, :xtmu, :tns, :tls, :mus, :lit, :vbes, :xtmh, :ltn]
+product_names = %I[tnk xrdh xtmu tns tls mus lit vbes xtmh ltn]
 
 product_names.each do |product_name|
   ProductType.create!(

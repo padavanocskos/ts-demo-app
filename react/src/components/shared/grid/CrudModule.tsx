@@ -5,6 +5,7 @@ import {
   GridFilterModel,
   GridSortModel,
   GridRowSelectionModel,
+  GridEventListener,
 } from "@mui/x-data-grid";
 import axios from "axios";
 import { useQuery } from "react-query";
@@ -21,7 +22,7 @@ import {
 import ContactForm from "../../Partners/Contacts/Forms/ContactForm";
 import { SearchProvider } from "../../Partners/Contacts/Forms/Search/SearchContext";
 import GridSearchbar from "../../Partners/Contacts/Forms/Search/GridSearchbar";
-import useAssyncOperation from "./search_form/hooks/assync_operations";
+import { useNavigate } from "react-router-dom";
 
 interface CrudModuleProps {
   moduleName: string;
@@ -84,12 +85,19 @@ const CrudModule: FC<CrudModuleProps> = ({ moduleName }) => {
     error: fieldDefsError,
   } = useQuery(["fieldsMetadata"], getFieldsMetadata);
 
+  const [fieldsMetadata, setFieldsMetadata] = useState({});
+
   useEffect(() => {
-    const columns = almafa?.data.field_defs.map((item) => {
-      return { field: item.name, headerName: item.label };
+    let a = [];
+    let b = [];
+
+    almafa?.data.field_defs.map((item) => {
+      a.push({ field: item.name, headerName: item.label });
+      b.push({ id: item.name, label: item.label, name: item.name });
     });
     if (!almafaIsLoading) {
-      setColumns(columns);
+      setColumns(a);
+      setFieldsMetadata(b);
     }
   }, [almafa, almafaIsLoading]);
 
@@ -98,17 +106,32 @@ const CrudModule: FC<CrudModuleProps> = ({ moduleName }) => {
   const handleClose = () => setOpen(false);
 
   const searchFields = [
-    { field: "first_name", simple: true, advanced: true, type: "text" },
-    { field: "last_name", simple: true, advanced: true, type: "text" },
-    { field: "middle_name", simple: false, advanced: true, type: "text" },
-    { field: "email", simple: true, advanced: true, type: "text" },
-    { field: "phone_1", simple: false, advanced: true, type: "text" },
-    { field: "phone_2", simple: false, advanced: false, type: "text" },
-    { field: "mobile_1", simple: false, advanced: true, type: "text" },
-    { field: "mobile_2", simple: false, advanced: false, type: "text" },
-    { field: "created_at", simple: true, advanced: true, type: "text" },
-    { field: "updated_at", simple: false, advanced: true, type: "text" },
+    { field: "first_name", simple: true, advanced: true, type: "string" },
+    { field: "last_name", simple: true, advanced: true, type: "string" },
+    { field: "middle_name", simple: false, advanced: true, type: "string" },
+    { field: "email", simple: true, advanced: true, type: "string" },
+    { field: "age", simple: true, advanced: true, type: "number" },
+    { field: "birthdate", simple: true, advanced: true, type: "date" },
+    { field: "phone_1", simple: false, advanced: true, type: "string" },
+    { field: "phone_2", simple: false, advanced: false, type: "string" },
+    { field: "mobile_1", simple: false, advanced: true, type: "string" },
+    { field: "mobile_2", simple: false, advanced: false, type: "string" },
+    { field: "created_at", simple: true, advanced: true, type: "datetime" },
+    { field: "updated_at", simple: false, advanced: true, type: "datetime" },
   ];
+
+  const navigate = useNavigate();
+
+  const handleEvent: GridEventListener<"rowDoubleClick"> = (
+    params,
+    event,
+    details
+  ) => {
+    console.log("PARAMS: ", params);
+    console.log("DETAILS: ", details);
+    navigate(`/partners/contact/${params.id}`);
+    // navigate(`/`);
+  };
 
   const [searchbarIsVisible, setSearchbarIsVisible] = useState<boolean>(false);
 
@@ -116,7 +139,7 @@ const CrudModule: FC<CrudModuleProps> = ({ moduleName }) => {
   return (
     <>
       <Modal open={open} onClose={handleClose}>
-        <ContactForm />
+        <ContactForm fields={fieldsMetadata} />
       </Modal>
       <Typography variant="h3" gutterBottom>
         {`${moduleName.charAt(0).toUpperCase()}${moduleName.slice(1)}`}
@@ -191,9 +214,11 @@ const CrudModule: FC<CrudModuleProps> = ({ moduleName }) => {
           filterMode="server"
           onFilterModelChange={handleFilterChange}
           checkboxSelection={checkboxSelection}
+          disableRowSelectionOnClick
           onRowSelectionModelChange={(newSelectionModel) =>
             setRowSelectionModel(newSelectionModel)
           }
+          onRowDoubleClick={handleEvent}
           rowSelectionModel={rowSelectionModel}
         />
       </Box>

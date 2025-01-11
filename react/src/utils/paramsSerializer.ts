@@ -1,17 +1,24 @@
 import { GridFilterItem, GridFilterModel, GridSortModel } from '@mui/x-data-grid'
 import * as qs from 'qs'
 import _ from 'lodash'
-import GridSearchFormTextInputOperatorEnum from '../components/shared/grid/search_form/TextInput/GridSearchFormTextInputOperatorEnum'
+import TextOperatorEnum from '../components/shared/grid/search_form/TextInput/types/TextOperatorEnum'
+import GeneralOperatorEnum from '../components/shared/grid/search_form/TextInput/types/GeneralOperatorEnum'
+import NumericOperatorEnum from '../components/shared/grid/search_form/TextInput/types/NumericOperatorEnum'
 
 const processFilters = (filterModel: GridFilterModel, columns: []) => {
   const operatorMap = {
-    [GridSearchFormTextInputOperatorEnum.Contains]: 'cont',
-    [GridSearchFormTextInputOperatorEnum.Equals]: 'eq',
-    [GridSearchFormTextInputOperatorEnum.StartsWith]: 'start',
-    [GridSearchFormTextInputOperatorEnum.EndsWith]: 'end',
-    [GridSearchFormTextInputOperatorEnum.IsEmpty]: 'blank',
-    [GridSearchFormTextInputOperatorEnum.IsNotEmpty]: 'present',
-    [GridSearchFormTextInputOperatorEnum.IsAnyOf]: 'cont_any'
+    [NumericOperatorEnum.GreaterThan]: 'gt',
+    [NumericOperatorEnum.GreaterThanEqual]: 'gteq',
+    [NumericOperatorEnum.LessThan]: 'lt',
+    [NumericOperatorEnum.LessThanEqual]: 'lteq',
+    [NumericOperatorEnum.NonEquals]: 'not_eq',
+    [TextOperatorEnum.Contains]: 'cont',
+    [TextOperatorEnum.Equals]: 'eq',
+    [TextOperatorEnum.StartsWith]: 'start',
+    [TextOperatorEnum.EndsWith]: 'end',
+    [GeneralOperatorEnum.IsEmpty]: 'blank',
+    [GeneralOperatorEnum.IsNotEmpty]: 'present',
+    [GeneralOperatorEnum.IsAnyOf]: 'cont_any'
   }
 
   // TODO: Add quick filter

@@ -11,9 +11,10 @@ import RollListPage from "./pages/RollList";
 import ErrorPage from "./pages/Error";
 import Storages from "./components/Storages/Storages";
 import Partners from "./components/Partners/Partners";
-import Contacts from "./components/Partners/Contacts/Contacts";
 import Cores from "./components/Production/Cores/Cores";
-import Counter from "./components/Counter/Counter";
+import GeneralDetailView from "./components/shared/grid/views/GeneralDetailView";
+import Contacts from "./components/Partners/Contacts/Contacts";
+import path from "path";
 
 const App: FC = () => {
   const router = createBrowserRouter([
@@ -25,8 +26,22 @@ const App: FC = () => {
         { path: "/", element: <HomePage /> },
         { path: "/mill-rolls", element: <RollListPage /> },
         { path: "/storages", element: <Storages /> },
-        { path: "/partners", element: <Partners /> },
-        { path: "/partners/contacts", element: <Contacts /> },
+        {
+          path: "/partners",
+          element: <Partners />,
+          children: [
+            {
+              path: "contacts",
+              element: <Contacts />,
+            },
+            {
+              path: `contact/:id`,
+              element: <GeneralDetailView />,
+            },
+          ],
+        },
+        ,
+        // { path: "/partners/contact/:id", element: <GeneralDetailView /> },
         { path: "/production/cores", element: <Cores /> },
         // { path: "/counter", element: <Counter initialValue={4} /> },
       ],

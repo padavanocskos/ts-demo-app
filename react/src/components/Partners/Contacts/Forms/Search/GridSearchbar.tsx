@@ -15,7 +15,7 @@ import {
 import useSearch from "./SearchContext";
 import { publish } from "../../Events/customEvent";
 import AdvancedSearchForm from "./AdvancedSearchForm";
-import SimpleSearchForm from "./SimpleSearchForm";
+import SimpleSearchForm from "../../../../shared/grid/search_form/SimpleSearchForm";
 
 interface GridSearchbarProps {
   searchbarIsVisible?: boolean;

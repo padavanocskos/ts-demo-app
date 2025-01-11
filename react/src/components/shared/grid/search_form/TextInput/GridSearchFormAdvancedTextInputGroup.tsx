@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
-import GridSearchFormTextInputOperatorSelect from "./GridSearchFormTextInputOperatorSelect";
-import GridSearchFormTextInputOperatorEnum from "./GridSearchFormTextInputOperatorEnum";
+import GridSearchFormTextInputOperatorSelect from "./TextInputOperatorSelect";
+import GridSearchFormTextInputOperatorEnum from "./types/TextOperatorEnum";
 import {
   Box,
   Checkbox,

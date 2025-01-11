@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import useSearch from "../../../../Partners/Contacts/Forms/Search/SearchContext";
-import GridSearchFormTextInputOperatorEnum from "./GridSearchFormTextInputOperatorEnum";
+import GridSearchFormTextInputOperatorEnum from "./types/TextOperatorEnum";
 import { subscribe } from "../../../../Partners/Contacts/Events/customEvent";
 import { IGridSearchFormInputProps } from "../IGridSearchFormInputProps";
 

@@ -3,6 +3,8 @@ en:
     id: 'ID'
     first_name: 'Firstname'
     last_name: 'Lastname'
+    age: 'Age'
+    birthdate: 'Birthdate'
     middle_name: 'Middlename'
     email: 'Email'
     phone1: 'Phone 1'
