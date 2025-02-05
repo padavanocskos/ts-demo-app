@@ -1,4 +1,4 @@
-import { FormControl, SelectChangeEvent } from "@mui/material";
+import { Box, FormControl, SelectChangeEvent } from "@mui/material";
 import { FC, useEffect } from "react";
 import useSearch from "../../../../Partners/Contacts/Forms/Search/SearchContext";
 import { subscribe } from "../../../../Partners/Contacts/Events/customEvent";
@@ -12,7 +12,13 @@ import useFieldOperator from "../hooks/field_operator";
 import useDateFieldValue from "../hooks/date_field_value";
 
 const DateTimeInputContainer: FC<IGridSearchFormInputProps> = (props) => {
-  const { id = "", name = "", label = "", showOperator = true } = props;
+  const {
+    id = "",
+    name = "",
+    label = "",
+    showOperator = true,
+    ...restProps
+  } = props;
   const { addToSearch: dispatchAddToSearch } = useSearch();
   const {
     value: fieldValue,
@@ -41,31 +47,45 @@ const DateTimeInputContainer: FC<IGridSearchFormInputProps> = (props) => {
   const renderInputField = (field = { id, name, label }) => {
     return (
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="hu">
-        <FormControl>
-          <DateTimePicker
-            id={field.id}
-            name={field.name}
-            label={field.label}
-            value={fieldValue}
-            onChange={(newValue) => setFieldValue(newValue.toString())}
-            disableFuture={true}
-            clearable={false}
-            componentsProps={{
-              actionBar: {
-                actions: ["clear", "cancel", "today"],
-              },
-            }}
-          />
-          <GridSearchFormNumericInputOperatorSelect
-            id={`${field.id}_operator_select`}
-            name={`${name}_operator_select`}
-            label="operator"
-            value={fieldOperator}
-            handleOnSelect={(event: SelectChangeEvent) => {
-              handleOperatorChange(event);
-            }}
-          />
-        </FormControl>
+        <Box
+          sx={{
+            display: "inline-flex",
+            justifyContent: "center",
+            alignItems: "center",
+            // width: "240px",
+            border: "1px solid gray",
+            borderRadius: "5px",
+            direction: "ltr",
+            padding: "1rem",
+          }}
+        >
+          <FormControl {...restProps}>
+            <DateTimePicker
+              id={field.id}
+              name={field.name}
+              label={field.label}
+              value={fieldValue}
+              onChange={(newValue) => setFieldValue(newValue.toString())}
+              disableFuture={true}
+              clearable={false}
+              // sx={{ width: "10em" }}
+              componentsProps={{
+                actionBar: {
+                  actions: ["clear", "cancel", "today"],
+                },
+              }}
+            />
+            <GridSearchFormNumericInputOperatorSelect
+              id={`${field.id}_operator_select`}
+              name={`${name}_operator_select`}
+              label="operator"
+              value={fieldOperator}
+              handleOnSelect={(event: SelectChangeEvent) => {
+                handleOperatorChange(event);
+              }}
+            />
+          </FormControl>
+        </Box>
       </LocalizationProvider>
     );
   };

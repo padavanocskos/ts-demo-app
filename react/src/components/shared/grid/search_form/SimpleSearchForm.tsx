@@ -5,6 +5,10 @@ import DateInputContainer from "./TextInput/DateInputContainer";
 import DateTimeInputContainer from "./TextInput/DateTimeInputContainer";
 
 const SimpleSearchForm: FC = ({ fields }) => {
+  const advancedSearchInputStyle = {
+    variant: "standard",
+    sx: { display: "flex", flexDirection: "row", gap: "1em" },
+  };
   return (
     <>
       {fields
@@ -36,6 +40,7 @@ const SimpleSearchForm: FC = ({ fields }) => {
                     .replace(/^./, name[0].toUpperCase())
                     .split("_")
                     .join(" ")}
+                  {...advancedSearchInputStyle}
                 />
               );
             case "date":
@@ -48,6 +53,7 @@ const SimpleSearchForm: FC = ({ fields }) => {
                     .replace(/^./, name[0].toUpperCase())
                     .split("_")
                     .join(" ")}
+                  {...advancedSearchInputStyle}
                 />
               );
             case "datetime":
@@ -60,6 +66,7 @@ const SimpleSearchForm: FC = ({ fields }) => {
                     .replace(/^./, name[0].toUpperCase())
                     .split("_")
                     .join(" ")}
+                  {...advancedSearchInputStyle}
                 />
               );
             default:

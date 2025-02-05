@@ -1,4 +1,4 @@
-import { FormControl, TextField } from "@mui/material";
+import { Box, FormControl, TextField } from "@mui/material";
 import { FC, useCallback, useEffect } from "react";
 import useSearch from "../../../../Partners/Contacts/Forms/Search/SearchContext";
 import { subscribe } from "../../../../Partners/Contacts/Events/customEvent";
@@ -10,7 +10,13 @@ import NumericInputOperatorSelect from "./NumericInputOperatorSelect";
 import NumericOperatorEnum from "./types/NumericOperatorEnum";
 
 const NumberInputContainer: FC<IGridSearchFormInputProps> = (props) => {
-  const { id = "", name = "", label = "", showOperator = true } = props;
+  const {
+    id = "",
+    name = "",
+    label = "",
+    showOperator = true,
+    ...restProps
+  } = props;
   const { addToSearch: dispatchAddToSearch } = useSearch();
   const {
     value: fieldValue,
@@ -19,6 +25,14 @@ const NumberInputContainer: FC<IGridSearchFormInputProps> = (props) => {
   } = useBaseFieldValue();
   const { operator: fieldOperator, handleOnChange: handleOperatorChange } =
     useFieldOperator(NumericOperatorEnum.GreaterThanEqual);
+
+  const isNumeric = (string) => Number.isFinite(+string);
+
+  const customHandleOnChange = (e) => {
+    if (isNumeric(e.target.value)) {
+      handleOnChange(e);
+    }
+  };
 
   useEffect(() => {
     subscribe("clearSearchContextFields", () => {
@@ -38,25 +52,38 @@ const NumberInputContainer: FC<IGridSearchFormInputProps> = (props) => {
 
   const renderInputField = (field = { id, name, label }) => {
     return (
-      <FormControl>
-        <TextField
-          type="text"
-          id={field.id}
-          name={field.name}
-          label={field.label}
-          value={fieldValue}
-          onChange={handleOnChange}
-        />
-        {showOperator && (
-          <NumericInputOperatorSelect
-            name={name}
-            label={label}
-            value={fieldOperator}
-            handleOnSelect={handleOperatorChange}
-            disabled={false}
+      <Box
+        sx={{
+          display: "inline-flex",
+          justifyContent: "center",
+          alignItems: "center",
+          // width: "240px",
+          border: "1px solid gray",
+          borderRadius: "5px",
+          direction: "ltr",
+          padding: "1rem",
+        }}
+      >
+        <FormControl {...restProps}>
+          <TextField
+            type="text"
+            id={field.id}
+            name={field.name}
+            label={field.label}
+            value={fieldValue}
+            onChange={customHandleOnChange}
           />
-        )}
-      </FormControl>
+          {showOperator && (
+            <NumericInputOperatorSelect
+              name={name}
+              label={label}
+              value={fieldOperator}
+              handleOnSelect={handleOperatorChange}
+              disabled={false}
+            />
+          )}
+        </FormControl>
+      </Box>
     );
   };
   return <>{renderInputField({ id, name, label })}</>;
